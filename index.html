@@ -337,6 +337,81 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Weather section styles */
+        .weather-section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .weather-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .location-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .location-btn {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .location-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .weather-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .weather-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .temperature {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .detail-item {
+            background-color: #e9f7fe;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
         /* Media Queries for Responsive Design */
         @media screen and (min-width: 768px) {
             .container {
@@ -385,7 +460,7 @@
                 height: 150px;
             }
             
-            .bio, .interests, .startup-video, .skills-projects {
+            .bio, .interests, .startup-video, .skills-projects, .weather-section {
                 padding: 1.5rem;
             }
             
@@ -395,6 +470,11 @@
             
             .card-links {
                 justify-content: center;
+            }
+            
+            .weather-info {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -437,6 +517,43 @@
                     <div class="interest-card">
                         <h3>Athletic</h3>
                         <p>Competitive golfer representing Hong Kong nationally. Former captain of UPenn Women's Golf Team (NCAA Division I). Sports have taught me discipline, teamwork, and leadership.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Weather API Section -->
+            <section class="weather-section">
+                <h2>Golf Weather Conditions</h2>
+                <p>Check the current weather conditions at my favorite golf locations:</p>
+                
+                <div class="location-buttons">
+                    <button class="location-btn active" data-lat="22.3193" data-long="114.1694">Hong Kong</button>
+                    <button class="location-btn" data-lat="40.7128" data-long="-74.0060">New York</button>
+                    <button class="location-btn" data-lat="39.9526" data-long="-75.1652">Philadelphia</button>
+                </div>
+                
+                <div class="weather-container">
+                    <h3 id="location-name">Hong Kong</h3>
+                    <div class="weather-info">
+                        <div class="temperature"><span id="temperature">--</span>°C</div>
+                        <div>
+                            <p id="condition">--</p>
+                            <p id="golf-tip">--</p>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Wind</div>
+                            <div id="wind">-- km/h</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Humidity</div>
+                            <div id="humidity">--%</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Last Updated</div>
+                            <div id="timestamp">--</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -497,9 +614,148 @@
             </section>
         </main>
     </div>
-    
+
     <footer>
         <p>Created for CS5356 - Homework 3 | &copy; 2025 Selina Li</p>
     </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const locationButtons = document.querySelectorAll('.location-btn');
+            const locationName = document.getElementById('location-name');
+            const temperature = document.getElementById('temperature');
+            const condition = document.getElementById('condition');
+            const golfTip = document.getElementById('golf-tip');
+            const wind = document.getElementById('wind');
+            const humidity = document.getElementById('humidity');
+            const timestamp = document.getElementById('timestamp');
+            
+            // Add click event listeners to location buttons
+            locationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    locationButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update location name
+                    locationName.textContent = this.textContent;
+                    
+                    // Get location coordinates
+                    const lat = this.getAttribute('data-lat');
+                    const long = this.getAttribute('data-long');
+                    
+                    // Fetch weather data
+                    fetchWeather(lat, long);
+                });
+            });
+            
+            // Function to fetch weather data
+            function fetchWeather(lat, long) {
+                // Show loading state
+                temperature.textContent = '--';
+                condition.textContent = 'Loading...';
+                golfTip.textContent = '';
+                wind.textContent = '-- km/h';
+                humidity.textContent = '--%';
+                
+                // Fetch from Open-Meteo API
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&wind_speed_unit=km/h`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update UI with weather data
+                        const current = data.current;
+                        
+                        temperature.textContent = Math.round(current.temperature_2m);
+                        wind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
+                        humidity.textContent = `${current.relative_humidity_2m}%`;
+                        
+                        // Set weather condition
+                        condition.textContent = getWeatherDescription(current.weather_code);
+                        
+                        // Set golf tip based on weather
+                        golfTip.textContent = getGolfTip(current.temperature_2m, current.wind_speed_10m, current.weather_code);
+                        
+                        // Set timestamp
+                        const now = new Date();
+                        timestamp.textContent = now.toLocaleTimeString();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather data:', error);
+                        condition.textContent = 'Failed to load weather data';
+                    });
+            }
+            
+            // Function to get weather description from WMO code
+            function getWeatherDescription(code) {
+                const weatherCodes = {
+                    0: 'Clear sky',
+                    1: 'Mainly clear',
+                    2: 'Partly cloudy',
+                    3: 'Overcast',
+                    45: 'Fog',
+                    48: 'Depositing rime fog',
+                    51: 'Light drizzle',
+                    53: 'Moderate drizzle',
+                    55: 'Dense drizzle',
+                    61: 'Slight rain',
+                    63: 'Moderate rain',
+                    65: 'Heavy rain',
+                    71: 'Slight snow fall',
+                    73: 'Moderate snow fall',
+                    75: 'Heavy snow fall',
+                    80: 'Slight rain showers',
+                    81: 'Moderate rain showers',
+                    82: 'Violent rain showers',
+                    95: 'Thunderstorm',
+                    96: 'Thunderstorm with hail',
+                    99: 'Thunderstorm with heavy hail'
+                };
+                
+                return weatherCodes[code] || 'Unknown';
+            }
+            
+            // Function to get golf tip based on weather
+            function getGolfTip(temp, windSpeed, weatherCode) {
+                // Thunderstorms or heavy precipitation
+                if ([95, 96, 99, 65, 75, 82].includes(weatherCode)) {
+                    return "⚠️ Not suitable for golf today";
+                }
+                
+                // Strong winds
+                if (windSpeed > 30) {
+                    return "🏌️ Strong winds - aim into the wind and club up!";
+                }
+                
+                // Rain or snow
+                if ([51, 53, 55, 61, 63, 71, 73, 80, 81].includes(weatherCode)) {
+                    return "☔ Bring waterproof gear and extra gloves";
+                }
+                
+                // Cold weather
+                if (temp < 10) {
+                    return "🧤 Cold weather - dress in layers and keep moving";
+                }
+                
+                // Hot weather
+                if (temp > 30) {
+                    return "☀️ Hot weather - stay hydrated and use sunscreen";
+                }
+                
+                // Ideal conditions
+                if ([0, 1, 2].includes(weatherCode) && temp >= 15 && temp <= 28 && windSpeed < 15) {
+                    return "✅ Perfect golf conditions today!";
+                }
+                
+                // Default message
+                return "🏌️ Good weather for a round of golf";
+            }
+            
+            // Fetch weather for default location (Hong Kong) on page load
+            fetchWeather("22.3193", "114.1694");
+        });
+    </script>
 </body>
 </html>
