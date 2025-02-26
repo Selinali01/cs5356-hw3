@@ -3,70 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My CS5356 Homepage</title>
+    <title>Selina Li - Personal Website</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             color: #333;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
         header {
             text-align: center;
-            margin-bottom: 40px;
+            padding: 2rem 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
         .profile-image {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 1.5rem auto;
             display: block;
             border: 3px solid #3498db;
+            transition: transform 0.3s ease;
         }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+        
         h1 {
             color: #2c3e50;
+            margin-bottom: 0.5rem;
         }
+        
+        /* Main content section */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        /* Bio section */
         .bio {
-            background-color: #f9f9f9;
-            padding: 20px;
+            background-color: #fff;
+            padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
+        .bio h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .bio p {
+            margin-bottom: 1rem;
+        }
+        
+        .bio a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .bio a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        /* Interests section with flexbox */
+        .interests {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .interests h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .interests-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+        
+        .interest-card {
+            flex: 1 1 300px;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .interest-card h3 {
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
         footer {
             text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 0.9em;
+            margin-top: auto;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        /* Media Queries for Responsive Design */
+        @media screen and (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+        }
+        
+        @media screen and (min-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 3rem;
+            }
+            
+            .interests-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            
+            .interest-card {
+                flex: 1 1 250px;
+            }
+        }
+        
+        /* Ensure small mobile screens (down to 375px) render properly */
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .bio, .interests {
+                padding: 1.5rem;
+            }
+            
+            .interest-card {
+                flex: 1 1 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="profile_photo.PNG" alt="My Profile Picture" class="profile-image">
-        <h1>Selina Li</h1>
-    </header>
-    
-    <section class="bio">
-        <h2>Self Introduction</h2>
-        <p>
-            Hi! My name is Selina. I am currently a Masters student at Cornell Tech, pursuing my MEng in Computer Science. Previously, I graduated from the University of Pennsylvania, where I received my B.A. in Economics, and minors in Data Science and Statistics. I worked as a Quant Researcher at J.P. Morgan for a year before pursuing my masters. 
-        </p>
-        <p>
-            I am also a competitive golfer, representing
-            <a href="https://www.hkga.com/gahkc-squad-juniors/hk-squad/mens-and-ladies-national-team/li-yuen-yuet-selina">Hong Kong </a> nationally for over a decade, and 
-            captained the  <a href="https://pennathletics.com/sports/womens-golf/roster/selina-li/19872"> UPenn Women's Golf Team (NCAA Division I) </a>. 
-            <br>
-        </p>
-        <p>
-            I'm currently running a startup as well called gymii.ai, with the goal of making nutrition tracking easy and social. We just launched, so please give it a download on the App Store or Google Play Store!
-        </p>
-    </section>
+    <div class="container">
+        <header>
+            <img src="profile_photo.PNG" alt="Selina Li's Profile Picture" class="profile-image">
+            <h1>Selina Li</h1>
+        </header>
+        
+        <main>
+            <article class="bio">
+                <h2>Self Introduction</h2>
+                <p>
+                    Hi! My name is Selina. I am currently a Masters student at Cornell Tech, pursuing my MEng in Computer Science. Previously, I graduated from the University of Pennsylvania, where I received my B.A. in Economics, and minors in Data Science and Statistics. I worked as a Quant Researcher at J.P. Morgan for a year before pursuing my masters.
+                </p>
+                <p>
+                    I am also a competitive golfer, representing
+                    <a href="https://www.hkga.com/gahkc-squad-juniors/hk-squad/mens-and-ladies-national-team/li-yuen-yuet-selina">Hong Kong</a> nationally for over a decade, and 
+                    captained the <a href="https://pennathletics.com/sports/womens-golf/roster/selina-li/19872">UPenn Women's Golf Team (NCAA Division I)</a>.
+                </p>
+                <p>
+                    I'm currently running a startup as well called gymii.ai, with the goal of making nutrition tracking easy and social. We just launched, so please give it a download on the App Store or Google Play Store!
+                </p>
+            </article>
+            
+            <section class="interests">
+                <h2>My Interests & Experience</h2>
+                <div class="interests-container">
+                    <div class="interest-card">
+                        <h3>Academic</h3>
+                        <p>Currently focusing on Computer Science with interests in machine learning, AI applications, and software development. My background in Economics and Data Science gives me a unique perspective on technical problems.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Professional</h3>
+                        <p>Experience as a Quant Researcher at J.P. Morgan, working with financial models and data analysis. Now exploring entrepreneurship with my startup gymii.ai in the health tech space.</p>
+                    </div>
+                    <div class="interest-card">
+                        <h3>Athletic</h3>
+                        <p>Competitive golfer representing Hong Kong nationally. Former captain of UPenn Women's Golf Team (NCAA Division I). Sports have taught me discipline, teamwork, and leadership.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
     
     <footer>
-        <p>Created for CS5356 - Homework 3</p>
+        <p>Created for CS5356 - Homework 3 | &copy; 2025 Selina Li</p>
     </footer>
 </body>
 </html>
