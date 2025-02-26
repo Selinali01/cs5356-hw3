@@ -225,22 +225,24 @@
             padding-bottom: 0.5rem;
         }
         
-        /* Parent grid container */
+        /* Updated subgrid container styles */
         .subgrid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto 1fr auto;
+            grid-template-rows: auto;
             gap: 1.5rem;
             margin: 2rem 0;
         }
         
-        /* Subgrid cards with different layouts */
+        /* Subgrid cards with different layouts and distinctive styling */
         .subgrid-card {
             background-color: #f8f9fa;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             padding: 1.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .subgrid-card:hover {
@@ -250,10 +252,8 @@
         
         /* Each card content uses subgrid for alignment */
         .subgrid-content {
-            display: grid;
-            /* This is where the subgrid magic happens */
-            grid-template-rows: subgrid;
-            grid-row: span 3;
+            display: flex;
+            flex-direction: column;
             height: 100%;
         }
         
@@ -267,41 +267,27 @@
             margin-bottom: 1rem;
         }
         
-        /* Card-specific styles */
-        .subgrid-card:nth-child(1) {
-            grid-column: 1;
+        /* Card-specific styles with different colors for each platform */
+        .website-card {
             background-color: #e9f7fe;
             border-left: 5px solid #3498db;
         }
         
-        .subgrid-card:nth-child(2) {
-            grid-column: 2 / span 2;
+        .ios-card {
             background-color: #f0f8ea;
             border-left: 5px solid #27ae60;
         }
         
-        .subgrid-card:nth-child(3) {
-            grid-column: 1 / span 3;
+        .android-card {
             background-color: #fef5e9;
             border-left: 5px solid #f39c12;
-        }
-        
-        /* Lists styling */
-        .skills-list, .achievements-list {
-            padding-left: 1.2rem;
-            margin-bottom: 0;
-        }
-        
-        .skills-list li, .achievements-list li {
-            margin-bottom: 0.5rem;
         }
         
         /* Links in cards */
         .card-links {
             margin-top: auto;
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .card-link {
@@ -312,12 +298,43 @@
             border-radius: 5px;
             text-decoration: none;
             transition: background-color 0.2s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 200px;
         }
         
-        .card-link:hover {
+        .website-card .card-link {
+            background-color: #3498db;
+        }
+        
+        .website-card .card-link:hover {
             background-color: #2980b9;
-            text-decoration: none;
-            color: white;
+        }
+        
+        .ios-card .card-link {
+            background-color: #27ae60;
+        }
+        
+        .ios-card .card-link:hover {
+            background-color: #219653;
+        }
+        
+        .android-card .card-link {
+            background-color: #f39c12;
+        }
+        
+        .android-card .card-link:hover {
+            background-color: #e67e22;
+        }
+        
+        /* Lists styling */
+        .skills-list, .achievements-list {
+            padding-left: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        .skills-list li, .achievements-list li {
+            margin-bottom: 0.5rem;
         }
         
         /* Media Queries for Responsive Design */
@@ -359,12 +376,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .subgrid-card:nth-child(1),
-            .subgrid-card:nth-child(2),
-            .subgrid-card:nth-child(3) {
-                grid-column: 1;
-            }
-            
             .container {
                 padding: 1rem;
             }
@@ -383,12 +394,7 @@
             }
             
             .card-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .card-link {
-                text-align: center;
+                justify-content: center;
             }
         }
     </style>
@@ -439,18 +445,35 @@
                 <h2>More about my startup!!</h2>
                 
                 <div class="subgrid-container">
-                    <div class="subgrid-card">
+                    <div class="subgrid-card website-card">
                         <div class="subgrid-content">
-                            <h3>Project: gymii.ai</h3>
-                            <p>A nutrition tracking app that makes healthy eating social and easy. Features AI-powered food recognition, social sharing, and personalized nutritional insights.</p>
+                            <h3>gymii.ai Website</h3>
+                            <p>Check out our official website to learn more about our mission to make nutrition tracking social and easy with AI-powered features.</p>
                             <p class="card-links">
-                                <a href="https://site.gymii.ai/" class="card-link">Website</a>
-                                <a href="https://apps.apple.com/us/app/gymii-ai-nutrition-tracking/id6741082957" class="card-link">iOS App</a>
-                                <a href="https://play.google.com/store/apps/details?id=ai.gymii.gymiiai" class="card-link">Android App</a>
+                                <a href="https://site.gymii.ai/" class="card-link">Visit Website</a>
                             </p>
                         </div>
                     </div>
                     
+                    <div class="subgrid-card ios-card">
+                        <div class="subgrid-content">
+                            <h3>iOS App</h3>
+                            <p>Download gymii.ai on your iPhone or iPad to start tracking your nutrition with AI-powered food recognition and connect with friends.</p>
+                            <p class="card-links">
+                                <a href="https://apps.apple.com/us/app/gymii-ai-nutrition-tracking/id6741082957" class="card-link">Download on App Store</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="subgrid-card android-card">
+                        <div class="subgrid-content">
+                            <h3>Android App</h3>
+                            <p>Get gymii.ai on your Android device for seamless nutrition tracking, social sharing, and personalized nutritional insights.</p>
+                            <p class="card-links">
+                                <a href="https://play.google.com/store/apps/details?id=ai.gymii.gymiiai" class="card-link">Get it on Google Play</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
             
