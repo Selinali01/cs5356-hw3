@@ -209,6 +209,117 @@
             font-family: monospace;
         }
         
+        /* Skills & Projects Section with CSS Subgrid */
+        .skills-projects {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .skills-projects h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Parent grid container */
+        .subgrid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        /* Subgrid cards with different layouts */
+        .subgrid-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .subgrid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Each card content uses subgrid for alignment */
+        .subgrid-content {
+            display: grid;
+            /* This is where the subgrid magic happens */
+            grid-template-rows: subgrid;
+            grid-row: span 3;
+            height: 100%;
+        }
+        
+        .subgrid-card h3 {
+            color: #3498db;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .subgrid-card p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Card-specific styles */
+        .subgrid-card:nth-child(1) {
+            grid-column: 1;
+            background-color: #e9f7fe;
+            border-left: 5px solid #3498db;
+        }
+        
+        .subgrid-card:nth-child(2) {
+            grid-column: 2 / span 2;
+            background-color: #f0f8ea;
+            border-left: 5px solid #27ae60;
+        }
+        
+        .subgrid-card:nth-child(3) {
+            grid-column: 1 / span 3;
+            background-color: #fef5e9;
+            border-left: 5px solid #f39c12;
+        }
+        
+        /* Lists styling */
+        .skills-list, .achievements-list {
+            padding-left: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        .skills-list li, .achievements-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Links in cards */
+        .card-links {
+            margin-top: auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .card-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .card-link:hover {
+            background-color: #2980b9;
+            text-decoration: none;
+            color: white;
+        }
+        
         /* Media Queries for Responsive Design */
         @media screen and (min-width: 768px) {
             .container {
@@ -243,7 +354,17 @@
         }
         
         /* Ensure small mobile screens (down to 375px) render properly */
-        @media screen and (max-width: 480px) {
+        @media screen and (max-width: 768px) {
+            .subgrid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .subgrid-card:nth-child(1),
+            .subgrid-card:nth-child(2),
+            .subgrid-card:nth-child(3) {
+                grid-column: 1;
+            }
+            
             .container {
                 padding: 1rem;
             }
@@ -253,12 +374,21 @@
                 height: 150px;
             }
             
-            .bio, .interests {
+            .bio, .interests, .startup-video, .skills-projects {
                 padding: 1.5rem;
             }
             
             .interest-card {
                 flex: 1 1 100%;
+            }
+            
+            .card-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .card-link {
+                text-align: center;
             }
         }
     </style>
@@ -301,6 +431,53 @@
                     <div class="interest-card">
                         <h3>Athletic</h3>
                         <p>Competitive golfer representing Hong Kong nationally. Former captain of UPenn Women's Golf Team (NCAA Division I). Sports have taught me discipline, teamwork, and leadership.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Skills & Projects Section using CSS Subgrid -->
+            <section class="skills-projects">
+                <h2>Skills & Projects</h2>
+                
+                <div class="subgrid-container">
+                    <!-- Technical Skills Card -->
+                    <div class="subgrid-card">
+                        <div class="subgrid-content">
+                            <h3>Technical Skills</h3>
+                            <ul class="skills-list">
+                                <li>Python & Data Analysis (Pandas, NumPy, Scikit-learn)</li>
+                                <li>Web Development (React, Node.js)</li>
+                                <li>Machine Learning & AI</li>
+                                <li>Financial Modeling</li>
+                                <li>Statistical Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 1: gymii.ai -->
+                    <div class="subgrid-card">
+                        <div class="subgrid-content">
+                            <h3>Project: gymii.ai</h3>
+                            <p>A nutrition tracking app that makes healthy eating social and easy. Features AI-powered food recognition, social sharing, and personalized nutritional insights.</p>
+                            <p class="card-links">
+                                <a href="https://site.gymii.ai/" class="card-link">Website</a>
+                                <a href="https://apps.apple.com/us/app/gymii-ai-nutrition-tracking/id6741082957" class="card-link">iOS App</a>
+                                <a href="https://play.google.com/store/apps/details?id=ai.gymii.gymiiai" class="card-link">Android App</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Achievements Card -->
+                    <div class="subgrid-card">
+                        <div class="subgrid-content">
+                            <h3>Achievements</h3>
+                            <ul class="achievements-list">
+                                <li>Captain, UPenn Women's Golf Team</li>
+                                <li>Hong Kong National Golf Team</li>
+                                <li>Finalist, Cornell Tech Startup Competition</li>
+                                <li>Scholarship Recipient, University of Pennsylvania</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
