@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selina Li - Personal Website</title>
     <style>
+        /* Base styles */
         * {
             margin: 0;
             padding: 0;
@@ -21,6 +22,7 @@
             flex-direction: column;
         }
         
+        /* Main container - uses CSS Grid for overall layout */
         .container {
             display: grid;
             grid-template-columns: 1fr;
@@ -31,6 +33,7 @@
             padding: 1.5rem;
         }
         
+        /* Header section */
         header {
             text-align: center;
             padding: 2rem 1rem;
@@ -140,11 +143,81 @@
             color: #ecf0f1;
         }
         
+        /* Video section styles */
+        .startup-video {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .startup-video h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .vertical-video {
+            max-height: 600px;
+            width: auto;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* Details element styling */
+        .video-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .video-details summary {
+            padding: 1rem;
+            background-color: #e9f2fa;
+            cursor: pointer;
+            font-weight: bold;
+            color: #3498db;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .video-details summary:hover {
+            background-color: #d4e6f1;
+        }
+        
+        .details-content {
+            padding: 1.5rem;
+        }
+        
+        .details-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .details-content code {
+            background-color: #eee;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
         /* Media Queries for Responsive Design */
         @media screen and (min-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
                 padding: 2rem;
+            }
+            
+            .vertical-video {
+                max-height: 500px;
             }
         }
         
@@ -162,6 +235,10 @@
             
             .interest-card {
                 flex: 1 1 250px;
+            }
+            
+            .vertical-video {
+                max-height: 600px;
             }
         }
         
@@ -225,6 +302,25 @@
                         <p>Competitive golfer representing Hong Kong nationally. Former captain of UPenn Women's Golf Team (NCAA Division I). Sports have taught me discipline, teamwork, and leadership.</p>
                     </div>
                 </div>
+            </section>
+            
+            <section class="startup-video">
+                <h2>My Startup: gymii.ai</h2>
+                <div class="video-container">
+                    <video controls poster="video-thumbnail.jpg" class="vertical-video">
+                        <source src="startup-video.mp4" type="video/mp4">
+                        <source src="startup-video.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <details class="video-details">
+                    <summary>What I Learned About HTML Elements</summary>
+                    <div class="details-content">
+                        <p>For this project, I explored two HTML elements I hadn't used before: the <code>&lt;video&gt;</code> element and the <code>&lt;details&gt;</code> element (which you're seeing right now!).</p>
+                        <p>The <code>&lt;video&gt;</code> element is fascinating because it provides native support for playing videos without requiring third-party plugins. I learned that it supports multiple source formats for browser compatibility, allows for custom controls, and can be styled with CSS to fit different layouts. One interesting behavior I discovered is that the <code>poster</code> attribute lets you display a thumbnail before the video plays.</p>
+                        <p>The <code>&lt;details&gt;</code> element (which you just clicked on) creates an interactive disclosure widget that reveals additional information when toggled. It includes a <code>&lt;summary&gt;</code> element that serves as the visible heading. What surprised me was that this functionality is built directly into HTML without requiring JavaScript, making it an accessible way to organize content without cluttering the page.</p>
+                    </div>
+                </details>
             </section>
         </main>
     </div>
