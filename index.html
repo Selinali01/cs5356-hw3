@@ -576,11 +576,11 @@
                     </video>
                 </div>
                 <details class="video-details">
-                    <summary>What I Learned About HTML Elements</summary>
+                    <summary>What I Learned </summary>
                     <div class="details-content">
-                        <p>For this project, I explored two HTML elements I hadn't used before: the <code>&lt;video&gt;</code> element and the <code>&lt;details&gt;</code> element (which you're seeing right now!).</p>
-                        <p>The <code>&lt;video&gt;</code> element is fascinating because it provides native support for playing videos without requiring third-party plugins. I learned that it supports multiple source formats for browser compatibility, allows for custom controls, and can be styled with CSS to fit different layouts. One interesting behavior I discovered is that the <code>poster</code> attribute lets you display a thumbnail before the video plays.</p>
-                        <p>The <code>&lt;details&gt;</code> element (which you just clicked on) creates an interactive disclosure widget that reveals additional information when toggled. It includes a <code>&lt;summary&gt;</code> element that serves as the visible heading. What surprised me was that this functionality is built directly into HTML without requiring JavaScript, making it an accessible way to organize content without cluttering the page.</p>
+                        <p> I explored two HTML elements I hadn't used before: the <code>&lt;video&gt;</code> element and the <code>&lt;details&gt;</code> element (which you're seeing right now!).</p>
+                        <p>The <code>&lt;video&gt;</code> elementprovides native support for playing videos without requiring third-party plugins. I learned that it supports multiple source formats for browser compatibility, allows for custom controls, and can be styled with CSS to fit different layouts. One interesting behavior I discovered is that the <code>poster</code> attribute lets you display a thumbnail before the video plays.</p>
+                        <p>The <code>&lt;details&gt;</code> element (which you just clicked on) creates an interactive disclosure widget that reveals additional information when toggled. It includes a <code>&lt;summary&gt;</code> element that serves as the visible heading!</p>
                     </div>
                 </details>
             </section>
@@ -614,18 +614,14 @@
                 const lat = "40.7128";
                 const long = "-74.0060";
                 
-                // Fetch from Open-Meteo API
+                // Open-meteo
                 fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&wind_speed_unit=km/h`)
                     .then(response => response.json())
                     .then(data => {
-                        // Update UI with weather data
                         const current = data.current;
-                        
                         temperature.textContent = Math.round(current.temperature_2m);
                         wind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
                         humidity.textContent = `${current.relative_humidity_2m}%`;
-                        
-                        // Set weather condition
                         condition.textContent = getWeatherDescription(current.weather_code);
                         
                         // Set golf tip based on weather
